@@ -37,6 +37,39 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            user-select: none;
+            z-index: 1000;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        @keyframes sway {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(20px);
+            }
+        }
     </style>
 </head>
 
@@ -286,6 +319,40 @@
             <p>&copy; 2025 Alexander Stashenko</p>
         </div>
     </footer>
+
+    <script>
+        // Create snowflakes
+        function createSnowflakes() {
+            const snowflakeCount = 50;
+            const snowflakes = ['❄', '❅', '❆'];
+
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+
+                // Random position
+                snowflake.style.left = Math.random() * 100 + 'vw';
+
+                // Random size
+                const size = Math.random() * 0.5 + 0.5;
+                snowflake.style.fontSize = size + 'em';
+                snowflake.style.opacity = size;
+
+                // Random animation duration
+                const duration = Math.random() * 10 + 10;
+                snowflake.style.animationDuration = duration + 's';
+
+                // Random delay
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+
+                document.body.appendChild(snowflake);
+            }
+        }
+
+        // Create snowflakes when page loads
+        window.addEventListener('load', createSnowflakes);
+    </script>
 
 </body>
 
